@@ -39,3 +39,6 @@ foreign key (bno) references book(bno) on delete cascade on update cascade
 create index borrow_cno on borrow(cno);
 create index borrow_bno on borrow(bno);
 create index borrow_operator on borrow(operator);
+
+alter table book
+add check(price>0 and stock>=0 and total>0 and total>=stock);
