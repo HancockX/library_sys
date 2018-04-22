@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-function try_login_with($ID, $password){
+function try_login_with($username, $password){
     $db_host = "localhost";
     $db_user = "root";
     $db_password = "DataBase18";
@@ -10,7 +10,7 @@ function try_login_with($ID, $password){
     if($conn -> connect_errno){
         die('连接错误' . $conn -> connect_error);
     }
-    $query = "select * from admin where ID = $ID";
+    $query = "select * from admin where ano = '{$username}'";
     $result = $conn->query($query);
     if ($result->num_rows > 0){
         while ($row = $result -> fetch_assoc()) {
