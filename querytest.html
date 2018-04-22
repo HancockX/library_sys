@@ -44,7 +44,7 @@
 		$db_host = "localhost";
 		$db_user = "root";
 		$db_password = "DataBase18";
-		$db_database = "library";
+		$db_database = "world";
 		$conn = new mysqli($db_host, $db_user, $db_password, $db_database);
 		if ( !$conn->connect_error ) {
 			echo "connection successful<br/>";
@@ -52,19 +52,16 @@
 		else {
 			echo "Failed <br/>";
 		}
-		// $mySQLi -> set_charset('utf8');
-		// $query = "select Name, Continent, Population  from country where Population < $number";
-		$query = "select * from book";
+		$query = "select Name, Continent, Population  from country where Population < $number";
 		$result = $conn->query($query);
-		var_dump($result);
-		// if ($result->num_rows > 0){
-		// 	echo("<table width=600 border=1>");
-		// 	echo("<tr><td width=115> Name </td><td width=110> Continent </td><td> Population </td></tr>");
-		// 	while($row = $result->fetch_array()){
-		// 		echo "<tr><td width = 250>", $row[0], "</td>", "<td width = 150>", $row[1], "</td><td width = 150>", $row[2], "</td></tr>" ;
-		// 	}
-		// 	echo "</table>", "Reseults Above", "<br/>" ;
-		// }
+		if ($result->num_rows > 0){
+			echo("<table width=600 border=1>");
+			echo("<tr><td width=115> Name </td><td width=110> Continent </td><td> Population </td></tr>");
+			while($row = $result->fetch_array()){
+				echo "<tr><td width = 250>", $row[0], "</td>", "<td width = 150>", $row[1], "</td><td width = 150>", $row[2], "</td></tr>" ;
+			}
+			echo "</table>", "Reseults Above", "<br/>" ;
+		}
 	}
 	?>
 </body>

@@ -20,7 +20,13 @@
         <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
-   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <?php
+        function check_session($index){
+            if(!empty($_SESSION["$index"])){ return true; }
+            else { return false; }
+        }
+    ?>
 </head>
 <body>
     <div id="wrapper">
@@ -75,16 +81,127 @@
                     </li>
                 </ul>
             </div>
-
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-          <div class="header"> 
+            <div class="header"> 
                         <h1 class="page-header">
-                            借书证管理 <small>Create new page.</small>
+                            图书入库 <small> 在表格中输入信息进行单本入库或导入txt文件以实现批量入库.</small>
                         </h1>
-                                    
-        </div>
+            <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            图书入库
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">单本入库</a>
+                                </li>
+                                <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">批量入库</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="home">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    图书信息
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <form role="form">
+                                                                <div class="form-group">
+                                                                    <label>图书编号</label>
+                                                                    <input class="form-control" name="bno" value="<?php if(check_session("bno")){ echo "{$_SESSION['bno']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>图书分类</label>
+                                                                    <input class="form-control" name="category" value="<?php if(check_session("category")){ echo "{$_SESSION['category']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>书名</label>
+                                                                    <input class="form-control" name="title" value="<?php if(check_session("title")){ echo "{$_SESSION['title']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>出版社</label>
+                                                                    <input class="form-control" name="press" value="<?php if(check_session("press")){ echo "{$_SESSION['press']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>出版年份</label>
+                                                                    <input class="form-control" type="number" name="year" value="<?php if(check_session("year")){ echo "{$_SESSION['year']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>作者</label>
+                                                                    <input class="form-control" name="author" value="<?php if(check_session("author")){ echo "{$_SESSION['author']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>购入价格</label>
+                                                                    <input class="form-control" type="number" step="0.01" name="price" value="<?php if(check_session("price")){ echo "{$_SESSION['price']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>总藏书量</label>
+                                                                    <input class="form-control" type="number" name="total" value="<?php if(check_session("total")){ echo "{$_SESSION['total']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>库存</label>
+                                                                    <input class="form-control" type="number" name="stock" value="<?php if(check_session("stock")){ echo "{$_SESSION['stock']}"; } else {echo "";}?>" required="required">
+                                                                </div>
+                                                                <hr/>
+                                                                <button type="submit" formmethod="post" formaction="book_store.php" class="btn btn-primary">提交入库申请</button>
+                                                                <button type="reset" class="btn btn-default">清空表单</button>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.col-lg-6 (nested) -->
+                                                    </div>
+                                                    <!-- /.row (nested) -->
+                                                </div>
+                                                <!-- /.panel-body -->
+                                            </div>
+                                            <!-- /.panel -->
+                                        </div>
+                                        <!-- /.col-lg-12 -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <a name="fileinput"></a>
+                                                    请选择需要导入的图书信息文件
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <form role="form">
+                                                                <div class="form-group">
+                                                                    <label>File input</label>
+                                                                    <input type="file" name="file1">
+                                                                    <p class="help-block">文本必须为txt格式，提交前请确保内容格式正确。</p>
+                                                                </div>
+                                                                <button type="submit" formmethod="post" formenctype="multipart/form-data" class="btn btn-primary" formaction="book_store.php">提交入库申请</button>
+                                                                <button type="reset" class="btn btn-default">清空文件输入</button>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.col-lg-6 (nested) -->
+                                                    </div>
+                                                    <!-- /.row (nested) -->
+                                                </div>
+                                                <!-- /.panel-body -->
+                                            </div>
+                                            <!-- /.panel -->
+                                        </div>
+                                        <!-- /.col-lg-12 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            </div>
             </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
