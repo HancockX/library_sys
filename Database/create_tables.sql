@@ -30,7 +30,7 @@ cno char(7),
 bno char(10),
 borrow_date date,
 return_date date,
-operator char(5),
+operator char(7),
 foreign key (operator) references admin(ano),
 foreign key (cno) references card(cno) on delete cascade on update cascade,
 foreign key (bno) references book(bno) on delete cascade on update cascade

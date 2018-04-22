@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             $ErrMessage = '登陆成功';
             $_SESSION['username'] = $username;
-            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/empty_page.html'</script>";
+            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/book_query.html'</script>";
         }
     }
 }
