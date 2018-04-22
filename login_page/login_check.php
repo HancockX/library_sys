@@ -7,6 +7,9 @@ function try_login_with($ID, $password){
     $db_password = "DataBase18";
     $db_database = "library";
     $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+    if($conn -> connect_errno){
+        die('连接错误' . $conn -> connect_error);
+    }
     $query = "select * from admin where ID = $ID";
     $result = $conn->query($query);
     if ($result->num_rows > 0){

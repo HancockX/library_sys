@@ -3,6 +3,9 @@
     session_start();
     require 'db_config.php';
     $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+    if($conn -> connect_errno){
+        die('连接错误' . $conn -> connect_error);
+    }
 ?>
 <html>
 <head>
@@ -34,7 +37,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.html"><strong>图书管理系统</strong></a>
-                
         <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
             </div>
 

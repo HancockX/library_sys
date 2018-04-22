@@ -3,6 +3,9 @@
     session_start();
     require 'db_config.php';
     $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+    if($conn -> connect_errno){
+        die('连接错误' . $conn -> connect_error);
+    }
 ?>
 <html>
 <head>
