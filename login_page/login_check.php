@@ -7,11 +7,12 @@ function try_login_with($ID, $password){
     $db_password = "DataBase18";
     $db_database = "library";
     $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
-    $query = "select ID, password from admin where ID = $ID";
+    $query = "select * from admin where ID = $ID";
     $result = $conn->query($query);
     if ($result->num_rows > 0){
         while ($row = $result -> fetch_assoc()) {
             if ($row['password'] == $password ){
+                $_SESSION['user'] = $row['name'];
                 return true;
             }
             else{
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             $ErrMessage = '登陆成功';
             $_SESSION['username'] = $username;
-            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/index.html'</script>";
+            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/empty_page.html'</script>";
         }
     }
 }

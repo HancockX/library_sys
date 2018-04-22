@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <?php
     session_start();
     require 'db_config.php';
@@ -9,8 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>图书管理系统</title>
-    <!-- Bootstrap Styles-->
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
+	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
@@ -56,13 +55,13 @@
                         <a href="index.html"><i class="fa fa-dashboard"></i> 概览 </a>
                     </li>
                     <li>
-                        <a href="book_query.html"><i class="fa fa-search"></i> 查询 </a>
+                        <a href="book_query.html" class="active-menu"><i class="fa fa-search"></i> 查询 </a>
                     </li>
                     <li>
                         <a href="book_borrow.html"><i class="fa fa-bookmark"></i> 借书 </a>
                     </li>
                     <li>
-                        <a href="book_return.html"  class="active-menu"><i class="fa fa-bookmark-o"></i> 还书 </a>
+                        <a href="book_return.html"><i class="fa fa-bookmark-o"></i> 还书 </a>
                     </li>
                     <li>
                         <a href="book_store.html"><i class="fa fa-edit"></i> 图书入库 </a>
@@ -76,12 +75,12 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-          <div class="header"> 
+		  <div class="header"> 
                         <h1 class="page-header">
                             借书证管理 <small>Create new page.</small>
                         </h1>
-                                    
-        </div>
+									
+		</div>
             </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
