@@ -38,7 +38,7 @@
 
 		$table = $query = $Err = "";
 		$condition = array();
-		$query = "select * from book";
+		$query = "select title, bno, category, press, year, author, price, total, stock from book";
 	    $order_limit = " order by title desc limit 50; ";
 	    $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
 	    if($conn -> connect_errno){
@@ -63,7 +63,7 @@
 				goto execute;
 			}
 			else{
-				$query = "select * from book where total > -1 ";
+				$query = "select title, bno, category, press, year, author, price, total, stock from book where total > -1 ";
 				if (!empty($condition['category'])) {
 					$extra = " and category like '%{$condition['category']}%' ";
 					$query = $query . $extra;

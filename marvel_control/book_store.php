@@ -106,7 +106,8 @@
 				while(!feof($myfile)) {
 					$linedata = fgets($myfile);
 					if (empty($linedata)) {
-						die('data error');
+						// die('data error');
+						break;
 					}
 					$info = explode(",", $linedata);
 					$mark = insert_single_book_entry($info[0], $info[1], $info[2], $info[3], $info[4], $info[5], $info[6], $info[7], $info[8]);
