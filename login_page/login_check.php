@@ -1,8 +1,7 @@
 <?php
     session_start();
-    require 'utilities.php';
-    
-    function try_login_with($username, $password){
+
+function try_login_with($username, $password){
     $db_host = "localhost";
     $db_user = "root";
     $db_password = "DataBase18";
@@ -57,6 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/book_query.html'</script>";
         }
     }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
 ?>

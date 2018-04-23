@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    //require 'book_query.php';
-    require 'utilities.php';
-    update_session();
     require 'db_config.php';
     $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
     if($conn -> connect_errno){
@@ -24,6 +21,12 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <?php
+        function check_session($index){
+            if(!empty($_SESSION["$index"])){ return true; }
+            else { return false; }
+        }
+    ?>
 </head>
 <body>
     <div id="wrapper">
@@ -44,7 +47,7 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> "<?php echo check_session("user");?>" </a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> <?php echo"{$_SESSION['user']}";?></a>
                         </li>
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
@@ -115,7 +118,7 @@
                                                                     <form role="form">
                                                                         <div class="form-group">
                                                                             <label>图书编号</label>
-                                                                            <input class="form-control" name="bno" required="required">
+                                                                            <input class="form-control" name="bno" value="<?php if(check_session("bno")){ echo "{$_SESSION['bno']}"; } else {echo "";}?>" required="required">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>图书分类</label>

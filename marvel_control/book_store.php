@@ -70,8 +70,8 @@
 			if ($Err == "") {
 				$flag = insert_single_book_entry($bno, $category, $title, $press, $year, $author, $price, $total, $stock);
 				if(!$flag){
-		            $ErrMessage = 'Error Number: 101 入库失败,请检查表单';
-		            // die('Error Number 1');
+		            $ErrMessage = '入库失败,请检查表单';
+		            die('Error Number 1');
 		            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html' </script>";
 		        }
 		        else{
@@ -98,11 +98,9 @@
 			        // echo "success";  
 			    } else{  
 			    	var_dump($after_path);
-			    	$ErrMessage = 'Error Number: 111 转移失败,请检查文件';
-		            // die('Error Number 1');
-		            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html' </script>";  
+			    	die('move file error');  
 			    }
-			    $myfile = fopen($after_path, "r") or die("Error Number: 112 Unable to open file!");
+			    $myfile = fopen($after_path, "r") or die("Unable to open file!");
 				// 输出单行直到 end-of-file
 
 				while(!feof($myfile)) {
@@ -113,13 +111,12 @@
 					$info = explode(",", $linedata);
 					$mark = insert_single_book_entry($info[0], $info[1], $info[2], $info[3], $info[4], $info[5], $info[6], $info[7], $info[8]);
 					if(!$mark){
-			            // var_dump($linedata);
-			            // echo "<br/><br/><br/>";
-			            // var_dump($info);
-			            // var_dump($after_path);
-				    	$ErrMessage = 'Error Number: 113 入库失败,请检查文件内容';
-			            // die('Error Number 1');
-			            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html' </script>"; 
+			            $ErrMessage = '入库失败,请检查文件';
+			            var_dump($linedata);
+			            echo "<br/><br/><br/>";
+			            var_dump($info);
+			            die('Error Number 3');
+			            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html#fileinput' </script>";
 			        }
 				}
 				fclose($myfile);
