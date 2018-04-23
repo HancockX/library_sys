@@ -148,7 +148,7 @@ function get_session($index)
         <div id="page-wrapper">
             <div class="header"> 
                         <h1 class="page-header">
-                            图书归还  <small> 输入借书证号码以查看借阅状态</small>
+                            图书归还  <small> 输入借书证号码以查看其借阅状态</small>
                         </h1>                   
             </div>
             <div id="page-inner">
@@ -421,30 +421,32 @@ function get_session($index)
                                 }
                                 if($result->num_rows>0)
                                 {
-                                    $row = $result->fetch_array();
-                                    $query = "update book set stock=stock+1 where bno='{$row[0]}';";
+                                    $row = $result->fetch_assoc();
+                                    $query = "update book set stock=stock+1 where bno='{$row['bno']}';";
                                     $conn->query($query);
                                     date_default_timezone_set('Asia/Shanghai');
                                     $current_date=date("Y-m-d");
                                     $query = "select max(borrow_date)
                                               from borrow
-                                              where bno='{$row[0]}' and cno='{$number}';
+                                              where bno='{$row['bno']}' and cno='{$number}';
                                              ";
                                     $maxrow=$conn->query($query);
                                     $max_borrow_date = $maxrow->fetch_array();
                                     $query = "delete from borrow 
                                               where bno='{$bno}' and cno='{$number}'
-                                                    and borrow_date='$max_borrow_date[0]';
+                                                    and borrow_date='$max_borrow_date[0]' ;
                                              ";
+                                    // var_dump($query);
                                     $result = $conn->query($query);
                                     if ($result) {
                                         $ErrMessage = '还书成功';
-                                        echo "<script type='text/javascript'> alert('{$ErrMessage}');</script>";
+                                        echo "<script> alert('{$ErrMessage}');</script>";
                                         return true;
                                     }
                                     else{
                                         $ErrMessage = '还书失败！';
-                                        echo "<script type='text/javascript'> alert('{$ErrMessage}');</script>";
+                                        die();
+                                        echo "<script> alert('{$ErrMessage}');</script>";
                                         return false;
                                     }
                                 }
