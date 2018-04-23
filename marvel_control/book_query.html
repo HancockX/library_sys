@@ -152,11 +152,11 @@
                                                         <div class="form-group">
                                                             <label for="price_min" class="col-sm-3 control-label">价格</label>
                                                             <div class="col-sm-4">
-                                                                <input type="number" class="form-control" name="price_min" value="<?php echo get_session("price_min") ?>">
+                                                                <input type="number" class="form-control" step="0.01" name="price_min" value="<?php echo get_session("price_min") ?>">
                                                             </div>
                                                             <label for="price_max" class="col-sm-1 control-label"> - </label>
                                                             <div class="col-sm-4">
-                                                                <input type="tnumber" class="form-control" name="price_max" value="<?php echo get_session("price_max") ?>">
+                                                                <input type="tnumber" class="form-control" step="0.01" name="price_max" value="<?php echo get_session("price_max") ?>">
                                                             </div>
                                                         </div>
                                                         <hr/>
