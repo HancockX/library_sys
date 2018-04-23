@@ -14,61 +14,51 @@ $bno = "";
 
 if ($_GET) 
 {
-    if (empty($_GET["number"]))
-    {
-        $numErr = "number is required";
-    } 
+    if (empty($_GET["number"])){
+        $numErr = "number is required";} 
     else
     {
         $number = test_input1($_GET["number"]);
     }
-    if(empty($_GET["bno"]))
-    {
-        $bnoErr = "";
-    }
-    else
-    {
-        $bno = test_input1($_GET["bno"]);
-    }
+    if(empty($_GET["bno"])){
+        $bnoErr = "";}
+    else{
+        $bno = test_input1($_GET["bno"]);}
 }
 
 update_session();
 
-function test_input1($data)
-{
+
+
+function test_input1($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
 
-function update_session()
-{
-    if ($_GET) 
-    {
-        foreach ($_GET as $key => $value)
-        {
-            if (!empty($value)) 
-            {
-                $value = test_input($value);
-                $_SESSION[$key] = $value;
-                $GLOBALS[$key] = $value;
+function update_session(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            foreach ($_POST as $key => $value) {
+                if (!empty($value)) {
+                    $value = test_input($value);
+                    $_SESSION[$key] = $value;
+                    $GLOBALS[$key] = $value;
+                }
             }
+            // var_dump($_SESSION);
+            // die("CHECK!");
+            // if (!empty($_POST["category"])){
+            //  $_SESSION["category"] = $_POST["category"]
+            // }
         }
     }
-}
 
-function get_session($index)
-{
-    if(!empty($_SESSION["$index"]))
-    {
-        return $_SESSION["$index"]; 
+    function get_session($index){
+            // return empty($_SESSION)["$index"] ? "" : $_SESSION["$index"] ;
+            if(!empty($_SESSION["$index"])){ return $_SESSION["$index"]; }
+            else { return ""; }
     }
-    else 
-    {
-        return "";
-    }
-}
 
 
 ?>
@@ -159,7 +149,7 @@ function get_session($index)
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="header">借阅信息</h3>
+                            <h3 class="header">借阅情况</h3>
                         </div>
                         <div class="panel-body">   
                             <div class="row">
@@ -176,50 +166,88 @@ function get_session($index)
                                                 <!-- </div> -->
                                             </div>
                                         </div>
+                                        <!-- <div class="form-group">
+                                            
+                                        </div> -->
+                                        <!-- <hr/> -->
                                     </form>
                                 </div>
                             </div> 
-
-
+                            <!-- echo"     -->
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class=" col-md-3 control-label"> 借书证!!!</label>
+                <div class=col-md-6>
+                    <input type=text class=form-control name=number>
+                </div>
+                <div class=col-md-3>
+                    <button type=submit formmethod=get class='btn btn-primary'> 提交查询 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> 
+                                        <!-- "; -->
                             <?php
+
                             if(!empty($number))
                             {
-                                $borrow_num = find($number);
+                                //$borrow_num = find($number);
+                                $borrow_num=1;
                                 if($borrow_num>=0)
                                 {
                                     $to_borrow_num = 5-$borrow_num;
+                                    // echo "<p font-size:13px align=center valign=middle>  借书证：$number &nbsp &nbsp已借书目总数：$borrow_num  &nbsp &nbsp 可借书目总数：$to_borrow_num</p> <br/><br/>";
 
-                                    echo"
-                                        <div class=row>
-                                            <div class=col-md-12> 
-                                                <p align=center>
-                                                    借书证：$number &nbsp &nbsp
-                                                    已借书目总数：$borrow_num  &nbsp &nbsp 
-                                                    可借书目总数：$to_borrow_num
-                                                </p>
-                                                <br/><hr/>
-                                            </div>
-                                         </div>
-                                        ";
 
-                                    echo"
+                                    // echo"
+                                    //     <div class='row'>"."
+                                    //         <div class='col-md-12'>"." 
+                                    //             <form>
+                                    //                 <div class='form-horizontal'>"."
+                                    //                     <div class='form-group'>"."
+                                    //                         <label for='bno' "." class='col-md-3' "." 'control-label'> 书号 </label>"."
+                                    //                         <div class='col-md-6'>"."
+                                    //                             <input type='text' "." form='form1' "." name='bno' "." value='get_session(bno)'>"."
+                                    //                             <span class='error'>$numErr</span>"."
+                                    //                         </div>"."
+                                    //                         <div class='col-md-3'>"."
+                                    //                             <button type='submit' "." form='form1'  formmethod=get formaction=" .htmlspecialchars($_SERVER["PHP_SELF"]). " "." class='btn btn-primary'> 提交查询 </button>"."
+                                    //                         </div>
+                                    //                     </div>
+                                    //                 </div>
+                                    //             <form/>
+                                    //         </div>
+                                    //     </div>
+                                    //     ";
+                                    echo"    
                                         <div class=row>
-                                            <div class=col-md-12> 
+                                            <div class=col-md-12>
                                                 <form class=form-horizontal method=get>
                                                     <div class=form-group>
-                                                        <label for=bno class='col-md-3 control-label'> 书号 </label>
+                                                        <div class=col-md-3>
+                                                            <label control-label align = right > 借书证!!!</label>
+                                                        </div>
                                                         <div class=col-md-6>
-                                                            <input type=text form=form1 class=form-control name=bno value=",get_session("bno"),">
-                                                            <span class=error>$numErr</span>
+                                                            <input type=text class=form-control name=number>
                                                         </div>
                                                         <div class=col-md-3>
-                                                            <button type=submit form=form1 formmethod=get formaction=" .htmlspecialchars($_SERVER["PHP_SELF"]). " class='btn btn-primary'> 提交查询 </button>
+                                                            <button type=submit formmethod=get class='btn btn-primary'> 提交查询 </button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                        </div>
+                                        </div> 
                                         ";
+
+                                    // echo "
+                                    //     书号 <br/>
+                                    //     <input form=form1 type=text name=bno value='{$bno}' autofocus>
+                                    //     <span class=error>$bnoErr</span>
+                                    //     <input type=submit form=form1 formmethod='get' formaction=". htmlspecialchars($_SERVER["PHP_SELF"]). "  value=return>
+                                    //     <br/>";
 
                                     if(!empty($bno))
                                     {
@@ -254,49 +282,34 @@ function get_session($index)
                                     if ($result->num_rows > 0)
                                     {
                                         echo("<br/>");
-                                        echo"
-                                            <div class=row>
-                                                <div class=col-lg-12>
-                                                    <div class=table>
-                                                        <table class='table table-striped table-bordered table-hover' id=dataTables-example>
-                                                            <thead>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td align=center valign=middle width=80>  书号 </td>
-                                                                    <td align=center valign=middle width=80>  类别 </td>
-                                                                    <td align=center valign=middle width=200>  书名 </td>
-                                                                    <td align=center valign=middle width=150>  出版社 </td>
-                                                                    <td align=center valign=middle width=80>  年份 </td>
-                                                                    <td align=center valign=middle width=100>  作者 </td>
-                                                                    <td align=center valign=middle width=100>  价格 </td>
-                                                                    <td align=center valign=middle width=80>  总藏书量 </td>
-                                                                    <td align=center valign=middle width=80>  库存 </td>
-                                                                </tr>
-                                            ";
+                                        echo("<table width=1000 border=1>");
+                                        echo("
+                                            <tr>
+                                                <td align=center valign=middle width=80>  书号 </td>
+                                                <td align=center valign=middle width=80>  类别 </td>
+                                                <td align=center valign=middle width=200>  书名 </td>
+                                                <td align=center valign=middle width=150>  出版社 </td>
+                                                <td align=center valign=middle width=80>  年份 </td>
+                                                <td align=center valign=middle width=100>  作者 </td>
+                                                <td align=center valign=middle width=100>  价格 </td>
+                                                <td align=center valign=middle width=80>  总藏书量 </td>
+                                                <td align=center valign=middle width=80>  库存 </td>
+                                            </tr>");
                                         while($row = $result->fetch_array())
                                         {
-                                                            echo"
-                                                                <tr>
-                                                                    <td align=center valign=middle width = 80> $row[0] </td>
-                                                                    <td align=center valign=middle width = 80> $row[1] </td>
-                                                                    <td align=center valign=middle width = 200> $row[2] </td>
-                                                                    <td align=center valign=middle width = 150> $row[3] </td>
-                                                                    <td align=center valign=middle width = 80> $row[4] </td>
-                                                                    <td align=center valign=middle width = 100> $row[5] </td>
-                                                                    <td align=center valign=middle width = 100> $row[6] </td>
-                                                                    <td align=center valign=middle width = 80> $row[7] </td>
-                                                                    <td align=center valign=middle width = 80> $row[8] </td>
-                                                                </tr>
-                                                                ";
+                                            echo("<tr>
+                                                    <td align=center valign=middle width = 80> $row[0] </td>
+                                                    <td align=center valign=middle width = 80> $row[1] </td>
+                                                    <td align=center valign=middle width = 200> $row[2] </td>
+                                                    <td align=center valign=middle width = 150> $row[3] </td>
+                                                    <td align=center valign=middle width = 80> $row[4] </td>
+                                                    <td align=center valign=middle width = 100> $row[5] </td>
+                                                    <td align=center valign=middle width = 100> $row[6] </td>
+                                                    <td align=center valign=middle width = 80> $row[7] </td>
+                                                    <td align=center valign=middle width = 80> $row[8] </td>
+                                                  </tr>");
                                         }
-                                                            echo"
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>";
-                            
+                                        echo "</table>";
                                         $query = "select count(*)
                                                   from borrow
                                                   where cno='{$number}';";
@@ -306,31 +319,20 @@ function get_session($index)
                                     else
                                     {
                                         echo("<br/>");
-                                        echo"
-                                            <div class=row>
-                                                <div class=col-lg-12>
-                                                    <div class=table>
-                                                        <table class='table table-striped table-bordered table-hover' id=dataTables-example>
-                                                            <thead>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td align=center valign=middle width=80>  书号 </th>
-                                                                    <td align=center valign=middle width=80>  类别 </th>
-                                                                    <td align=center valign=middle width=200>  书名 </th>
-                                                                    <td align=center valign=middle width=150>  出版社 </th>
-                                                                    <td align=center valign=middle width=80>  年份 </th>
-                                                                    <td align=center valign=middle width=100>  作者 </th>
-                                                                    <td align=center valign=middle width=100>  价格 </th>
-                                                                    <td align=center valign=middle width=80>  总藏书量 </th>
-                                                                    <td align=center valign=middle width=80>  库存 </th>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            ";
+                                        echo("<table width=1000 border=1>");
+                                        echo("
+                                            <tr>
+                                                <td align=center valign=middle width=80>  书号 </td>
+                                                <td align=center valign=middle width=80>  类别 </td>
+                                                <td align=center valign=middle width=200>  书名 </td>
+                                                <td align=center valign=middle width=150>  出版社 </td>
+                                                <td align=center valign=middle width=80>  年份 </td>
+                                                <td align=center valign=middle width=100>  作者 </td>
+                                                <td align=center valign=middle width=100>  价格 </td>
+                                                <td align=center valign=middle width=80>  总藏书量 </td>
+                                                <td align=center valign=middle width=80>  库存 </td>
+                                            </tr>");
+                                        echo("<table/>");
                                         $borrow_num = 0;
                                     }
                                 }
@@ -378,47 +380,32 @@ function get_session($index)
                                     $query = "select * from book where bno='{$row[0]}';";
                                     $result = $conn->query($query);
                                     echo("<br/>");
-                                    echo"
-                                        <div class=row>
-                                            <div class=col-lg-12>
-                                                <div class=table>
-                                                    <table class='table table-striped table-bordered table-hover' id=dataTables-example>
-                                                        <thead>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align=center valign=middle width=80>  书号 </td>
-                                                                <td align=center valign=middle width=80>  类别 </td>
-                                                                <td align=center valign=middle width=200>  书名 </td>
-                                                                <td align=center valign=middle width=150>  出版社 </td>
-                                                                <td align=center valign=middle width=80>  年份 </td>
-                                                                <td align=center valign=middle width=100>  作者 </td>
-                                                                <td align=center valign=middle width=100>  价格 </td>
-                                                                <td align=center valign=middle width=80>  总藏书量 </td>
-                                                                <td align=center valign=middle width=80>  库存 </td>
-                                                            </tr>
-                                        ";
+                                    echo("<table width=1000 border=1>");
+                                    echo("<tr>
+                                        <td align=center valign=middle width=80>  书号 </td>
+                                        <td align=center valign=middle width=80>  类别 </td>
+                                        <td align=center valign=middle width=200>  书名 </td>
+                                        <td align=center valign=middle width=150>  出版社 </td>
+                                        <td align=center valign=middle width=80>  年份 </td>
+                                        <td align=center valign=middle width=100>  作者 </td>
+                                        <td align=center valign=middle width=100>  价格 </td>
+                                        <td align=center valign=middle width=80>  总藏书量 </td>
+                                        <td align=center valign=middle width=80>  库存 </td>
+                                      </tr>");
                                     $row = $result->fetch_array();
-                                    echo"
-                                                                <tr>
-                                                                    <td align=center valign=middle width = 80> $row[0] </td>
-                                                                    <td align=center valign=middle width = 80> $row[1] </td>
-                                                                    <td align=center valign=middle width = 200> $row[2] </td>
-                                                                    <td align=center valign=middle width = 150> $row[3] </td>
-                                                                    <td align=center valign=middle width = 80> $row[4] </td>
-                                                                    <td align=center valign=middle width = 100> $row[5] </td>
-                                                                    <td align=center valign=middle width = 100> $row[6] </td>
-                                                                    <td align=center valign=middle width = 80> $row[7] </td>
-                                                                    <td align=center valign=middle width = 80> $row[8] </td>
-                                                                </tr>
-                                        ";
-                                    echo"
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ";
+                                    echo("<tr>
+                                            <td align=center valign=middle width = 80> $row[0] </td>
+                                            <td align=center valign=middle width = 80> $row[1] </td>
+                                            <td align=center valign=middle width = 200> $row[2] </td>
+                                            <td align=center valign=middle width = 150> $row[3] </td>
+                                            <td align=center valign=middle width = 80> $row[4] </td>
+                                            <td align=center valign=middle width = 100> $row[5] </td>
+                                            <td align=center valign=middle width = 100> $row[6] </td>
+                                            <td align=center valign=middle width = 80> $row[7] </td>
+                                            <td align=center valign=middle width = 80> $row[8] </td>
+                                          </tr>");
+                                    echo "</table>";
+
                                     echo "<br/> 还书成功<br/>";
 
                                 }
@@ -428,6 +415,26 @@ function get_session($index)
                                 }
                             }
                             ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form1">
+                                        <div class="form-group">
+                                            <label for="number" style="font-size:15px;" class="col-md-3 control-label"> 借书证 </label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" name="number" value="<?php echo get_session("number") ?>">
+                                                <!-- <span class="error"><?php echo $numErr;?></span> -->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit" formmethod="get" formaction="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="btn btn-primary"> 提交查询 </button>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            
+                                        </div> -->
+                                        <!-- <hr/> -->
+                                    </form>
+                                </div>
                             </div> 
                         </div>
                     </div>
@@ -447,22 +454,7 @@ function get_session($index)
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <!-- <script src="assets/js/dataTables/dataTables.bootstrap.js"></script> -->
-    <!-- <script src="assets/js/bootstrap_datatable/bootstrap-table.js"></script> -->
-    <!-- 引入中文 -->
-    <!-- <script src="assets/js/bootstrap_datatable/bootstrap-table-zh-CN.js"></script> -->
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable({
-                    // pagination: true, // 在表格底部显示分页组件，默认false
-                    // pageList: [10, 20], // 设置页面可以显示的数据条数
-                    // search: true
-                });
-            });
-    </script>
-         <!-- Custom Js -->
+      <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     
    
