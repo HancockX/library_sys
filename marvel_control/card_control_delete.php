@@ -1,0 +1,89 @@
+<?php
+	session_start();
+	function test_input($data)
+	{
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	}
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		$Err = "";
+		$cno = $name = $department = $type = "";
+
+		if (empty($_POST["cno"])){
+	    	$Err = "bno is required";} 
+	    else 
+	    {
+			$cno = test_input($_POST["cno"]);
+			$_SESSION['cno'] = $cno;
+		}
+		if (empty($_POST["name"])){
+	    	$Err = "name is required";} 
+	    else 
+	    {
+			$name = test_input($_POST["name"]);
+			$_SESSION['name'] = $name;
+		}
+		if (empty($_POST["department"])){
+	    	$Err = "department is required";} 
+	    else 
+	    {
+			$department = test_input($_POST["department"]);
+			$_SESSION['department'] = $department;
+		}
+		if (empty($_POST["type"])){
+	    	$Err = "type is required";} 
+	    else 
+	    {
+			$type = test_input($_POST["type"]);
+			$_SESSION['type'] = $type;
+		}
+		
+		if ($Err == "")
+		{
+			$flag = delete_card($cno , $name , $department , $type);
+			if($flag)
+			{
+	            $ErrMessage = '删除失败,请检查表单';
+	            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'card_control.html' </script>";
+	        }
+	        else
+	        {
+	            $ErrMessage = '删除成功';
+	            clear_card_info();
+	            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='card_control.html'</script>";
+	        }
+	    }	
+		else
+		{
+			$ErrMessage = '删除失败';
+	        echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'card_control.html' </script>";
+		}
+	}
+	else
+	{
+		$ErrMessage = '请重新输入！';
+        echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/empty_page.html'</script>";
+	}
+	function clear_card_info(){
+		unset($_SESSION['cno']);
+		unset($_SESSION['name']);
+		unset($_SESSION['department']);
+		unset($_SESSION['type']);
+	}
+	function delete_card($cno, $name, $department, $type){
+		$db_host = "localhost";
+	    $db_user = "root";
+	    $db_password = "DataBase18";
+	    $db_database = "library";
+	    $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+	    if($conn -> connect_errno){
+	        die('连接错误' . $conn -> connect_error);
+	    }
+	    $query = "delete from card where cno='{$cno}' and name='{$name}' and department='{$department}' and type='{$type}';";
+	    $result = $conn->query($query);
+	    return $reult;
+	}
+?>
