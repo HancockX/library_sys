@@ -79,13 +79,222 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-          <div class="header"> 
+            <div class="header"> 
                         <h1 class="page-header">
-                            借书证管理 <small>Create new page.</small>
+                            借书证管理
                         </h1>
                                     
         </div>
+
+            <div id="page-inner">
+
+            <div class="row">
+                <div class="col-md-12">
+                    
+
+                    <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="form1">
+                    借书证号<br/> <input type="text" name="number" value = "<?php echo "$number";?>" >
+                    <span class="error"><?php echo $numErr;?></span>
+                    <button type="submit" value="Submit">search</button>
+                    </form>
+
+                    <?php
+
+                    if(!empty($number))
+                    {
+                        $borrow_num = find($number);
+                        if($borrow_num>=0)
+                        {
+                            $to_borrow_num = 5-$borrow_num;
+                            echo "<br/>  已借书目总数：$borrow_num    可借书目总数：$to_borrow_num <br/><br/>";
+
+                            if($to_borrow_num>0)
+                            {
+                                echo "
+                                    书号 <br/>
+                                    <input form=form1 type=text name=bno value='{$bno}' autofocus>
+                                    <span class=error>$bnoErr</span>
+                                    <input type=submit form=form1 formmethod='get' formaction=". htmlspecialchars($_SERVER["PHP_SELF"]). "  value=borrow>
+                                    <br/>";
+
+                                if(!empty($bno))
+                                {
+                                        $ano=$_SESSION['username'];
+                                        borrow($ano,$number,$bno);
+                                }
+                            }
+                        }
+                    }
+                    function find($number)
+                    {
+                        $db_host = "localhost";
+                        $db_user = "root";
+                        $db_password = "DataBase18";
+                        $db_database = "library";
+                        $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+                        if($conn -> connect_errno)
+                        {
+                            die('连接错误' . $conn -> connect_error);
+                        }
+
+                        $query = "select * from card where cno='{$number}';";
+                        $result = $conn->query($query);
+                        if($result->num_rows > 0)
+                        {
+                            $query = "select book.bno,category,title,press,year,author,price,total,stock
+                                     from book, borrow
+                                     where book.bno=borrow.bno 
+                                            and cno='{$number}';";
+                            $result = $conn->query($query);
+                            
+                            $borrow_num = 0;
+                            if ($result->num_rows > 0)
+                            {
+                                echo("<br/>");
+                                echo("<table width=1000 border=1>");
+                                echo("
+                                    <tr>
+                                        <td align=center valign=middle width=80>  书号 </td>
+                                        <td align=center valign=middle width=80>  类别 </td>
+                                        <td align=center valign=middle width=200>  书名 </td>
+                                        <td align=center valign=middle width=150>  出版社 </td>
+                                        <td align=center valign=middle width=80>  年份 </td>
+                                        <td align=center valign=middle width=100>  作者 </td>
+                                        <td align=center valign=middle width=100>  价格 </td>
+                                        <td align=center valign=middle width=80>  总藏书量 </td>
+                                        <td align=center valign=middle width=80>  库存 </td>
+                                    </tr>");
+                                while($row = $result->fetch_array())
+                                {
+                                    echo("<tr>
+                                            <td align=center valign=middle width = 80> $row[0] </td>
+                                            <td align=center valign=middle width = 80> $row[1] </td>
+                                            <td align=center valign=middle width = 200> $row[2] </td>
+                                            <td align=center valign=middle width = 150> $row[3] </td>
+                                            <td align=center valign=middle width = 80> $row[4] </td>
+                                            <td align=center valign=middle width = 100> $row[5] </td>
+                                            <td align=center valign=middle width = 100> $row[6] </td>
+                                            <td align=center valign=middle width = 80> $row[7] </td>
+                                            <td align=center valign=middle width = 80> $row[8] </td>
+                                          </tr>");
+                                }
+                                echo "</table>";
+                                $query = "select count(*)
+                                          from borrow
+                                          where cno='{$number}';";
+                                $result = $conn->query($query);
+                                $borrow_num = $result->fetch_array()[0];
+                            }
+                            else
+                            {
+                                echo("<br/>");
+                                echo("<table width=1000 border=1>");
+                                echo("
+                                    <tr>
+                                        <td align=center valign=middle width=80>  书号 </td>
+                                        <td align=center valign=middle width=80>  类别 </td>
+                                        <td align=center valign=middle width=200>  书名 </td>
+                                        <td align=center valign=middle width=150>  出版社 </td>
+                                        <td align=center valign=middle width=80>  年份 </td>
+                                        <td align=center valign=middle width=100>  作者 </td>
+                                        <td align=center valign=middle width=100>  价格 </td>
+                                        <td align=center valign=middle width=80>  总藏书量 </td>
+                                        <td align=center valign=middle width=80>  库存 </td>
+                                    </tr>");
+                                echo("<table/>");
+                                $borrow_num = 0;
+                            }
+                        }
+                        else
+                        {
+                            echo "<br/> 未找到指定借书证<br/>";
+                            $borrow_num = -1;
+                        }
+                       
+
+                        return $borrow_num;
+                    }
+                    function borrow($ano,$number,$bno)
+                    {
+                        $db_host = "localhost";
+                        $db_user = "root";
+                        $db_password = "DataBase18";
+                        $db_database = "library";
+                        $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
+                        if($conn -> connect_errno)
+                        {
+                            die('连接错误' . $conn -> connect_error);
+                        }
+                        $query = "select bno,stock
+                                 from book
+                                 where bno = '{$bno}';";
+                        $result = $conn->query($query);
+                        if($result->num_rows>0)
+                        {
+                            $row = $result->fetch_array();
+                            if($row[1]>0)
+                            {
+                                $query = "update book set stock=stock-1 where bno='{$row[0]}';";
+                                $conn->query($query);
+                                date_default_timezone_set('Asia/Shanghai');
+                                $current_date=date("Y-m-d");
+                                $query = "insert into borrow values('{$number}','{$bno}','$current_date',NULL,'{$ano}');";
+                                $conn->query($query);
+                                $query = "select * from book where bno='{$row[0]}';";
+                                $result = $conn->query($query);
+                                echo("<br/>");
+                                echo("<table width=1000 border=1>");
+                                echo("<tr>
+                                    <td align=center valign=middle width=80>  书号 </td>
+                                    <td align=center valign=middle width=80>  类别 </td>
+                                    <td align=center valign=middle width=200>  书名 </td>
+                                    <td align=center valign=middle width=150>  出版社 </td>
+                                    <td align=center valign=middle width=80>  年份 </td>
+                                    <td align=center valign=middle width=100>  作者 </td>
+                                    <td align=center valign=middle width=100>  价格 </td>
+                                    <td align=center valign=middle width=80>  总藏书量 </td>
+                                    <td align=center valign=middle width=80>  库存 </td>
+                                  </tr>");
+                                $row = $result->fetch_array();
+                                echo("<tr>
+                                        <td align=center valign=middle width = 80> $row[0] </td>
+                                        <td align=center valign=middle width = 80> $row[1] </td>
+                                        <td align=center valign=middle width = 200> $row[2] </td>
+                                        <td align=center valign=middle width = 150> $row[3] </td>
+                                        <td align=center valign=middle width = 80> $row[4] </td>
+                                        <td align=center valign=middle width = 100> $row[5] </td>
+                                        <td align=center valign=middle width = 100> $row[6] </td>
+                                        <td align=center valign=middle width = 80> $row[7] </td>
+                                        <td align=center valign=middle width = 80> $row[8] </td>
+                                      </tr>");
+                                echo "</table>";
+
+                                echo "<br/> 借书成功<br/>";
+                            }
+                            else
+                            {
+                                $query = "select return_date
+                                          from borrow
+                                          where bno='{$row[0]}' and return_date=(select max(return_date)
+                                                                            from borrow
+                                                                            where bno='{$row[0]}');";
+                                $result = $conn->query($query);
+                                $data_row = $result->fetch_array();
+                                echo "<br/> 该书无库存 最近归还日期：$data_row[0];<br/>";
+                            }
+                        }
+                        else
+                        {
+                            echo "<br/> 未找到指定书目<br/>";
+                        }
+                    }
+                    ?>
+
+                </div>
             </div>
+
+
+        </div>
          <!-- /. PAGE WRAPPER  -->
         </div>
      <!-- /. WRAPPER  -->
@@ -100,5 +309,11 @@
     <script src="assets/js/custom-scripts.js"></script>
     
    
+
+
+
+
+    
 </body>
 </html>
+
