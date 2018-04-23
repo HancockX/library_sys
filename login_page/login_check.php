@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-function try_login_with($ID, $password){
+function try_login_with($username, $password){
     $db_host = "localhost";
     $db_user = "root";
     $db_password = "DataBase18";
@@ -10,11 +10,7 @@ function try_login_with($ID, $password){
     if($conn->connect_errno){
         die('连接错误' . $conn->connect_error);
     }
-<<<<<<< HEAD
-=======
-    // $query = "select * from admin where ano = 'ano1' ";
->>>>>>> 1b79be0014b002e493d6a10ff3cca812dd15a788
-    $query = "select * from admin where ano = '{$ID}'";
+    $query = "select * from admin where ano = '{$username}'";
     $result = $conn->query($query);
     if ($result->num_rows > 0){
         while ($row = $result -> fetch_assoc()) {
@@ -60,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             $ErrMessage = '登陆成功';
             $_SESSION['username'] = $username;
-            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/empty_page.html'</script>";
+            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href ='/library_sys/marvel_control/book_query.html'</script>";
         }
     }
 }

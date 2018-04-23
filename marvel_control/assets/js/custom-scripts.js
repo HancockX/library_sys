@@ -57,10 +57,8 @@
                 xkey: 'y',
                 ykeys: ['a', 'b'],
                 labels: ['Series A', 'Series B'],
-				 barColors: [
-    '#A6A6A6','#F09B22',
-    '#A8E9DC' 
-  ],
+                barColors: [
+                '#A6A6A6','#F09B22','#A8E9DC' ],
                 hideHover: 'auto',
                 resize: true
             });
@@ -81,10 +79,7 @@
                     label: "Mail-Order Sales",
                     value: 20
                 }],
-				   colors: [
-    '#A6A6A6','#F09B22',
-    '#A8E9DC' 
-  ],
+				   colors: ['#A6A6A6','#F09B22','#A8E9DC' ],
                 resize: true
             });
 
@@ -172,19 +167,16 @@
 					  { y: '2023', a: 145, b: 155},
 					  { y: '2024', a: 160, b: 195}
 				],
-            
-				 
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Total Income', 'Total Outcome'],
-      fillOpacity: 0.6,
-      hideHover: 'auto',
-      behaveLikeLine: true,
-      resize: true,
-      pointFillColors:['#ffffff'],
-      pointStrokeColors: ['black'],
-      lineColors:['gray','#F09B22']
-	  
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Total Income', 'Total Outcome'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors:['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors:['gray','#F09B22']
             });
            
         
