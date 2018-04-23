@@ -89,6 +89,11 @@
 				//文件入库
 				// die('IN YET????');
 				$file=$_FILES['file1'];
+				if (empty($file['name'])) {
+					$ErrMessage = 'Error 101： 请选择文件！';
+	            	echo "<script> alert('{$ErrMessage}');location.href ='book_store.html#fileinput'</script>";
+				}
+				var_dump($file);
 				$filename=time().rand(0,1000);  
 				// $filename="input";
 			    //获取文件的后缀,pathinfo()会以数组的形式返回一个文件的路径信息，其中extension元素则是文件的后缀名  
@@ -117,11 +122,11 @@
 					$mark = insert_single_book_entry($info[0], $info[1], $info[2], $info[3], $info[4], $info[5], $info[6], $info[7], $info[8]);
 					if(!$mark){
 			            $ErrMessage = '入库失败,请检查文件';
-			            var_dump($linedata);
-			            echo "<br/><br/><br/>";
-			            var_dump($info);
-			            die('Error Number 3');
-			            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html#fileinput' </script>";
+			            // var_dump($linedata);
+			            // echo "<br/><br/><br/>";
+			            // var_dump($info);
+			            // die('Error Number 3');
+			            echo "<script> alert('{$ErrMessage}');location.href = 'book_store.html#fileinput' </script>";
 			        }
 				}
 				fclose($myfile);
