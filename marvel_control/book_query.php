@@ -98,19 +98,19 @@
 					$query = $query . $extra;
 				}
 				if (!empty($condition['year_min'])) {
-					$extra = " and year > {$condition['year_min']} ";
+					$extra = " and year_min > {$condition['year_min']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['year_max'])) {
-					$extra = " and year < {$condition['year_max']} ";
+					$extra = " and year_max < {$condition['year_max']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['price_min'])) {
-					$extra = " and price > {$condition['price_min']} ";
+					$extra = " and price_min > {$condition['price_min']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['price_max'])) {
-					$extra = " and price < {$condition['price_max']} ";
+					$extra = " and price_max < {$condition['price_max']} ";
 					$query = $query . $extra;
 				}
 			}
@@ -124,10 +124,6 @@
 		// var_dump($query);
 		$result = $conn->query($query);
 		$table = $line = "";
-		if ($result == false) {
-			$ErrMessage = "格式有误，请检查输入！";
-			echo "<script> alert('{$ErrMessage}');location.href ='{$_SERVER['HTTP_REFERER']}'</script>";
-		}
 	    if ($result->num_rows > 0){
 	        while ($row = $result -> fetch_array()) {
 	        	$line = echo_result($row);
