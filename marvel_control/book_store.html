@@ -118,39 +118,39 @@
                                                                     <form role="form">
                                                                         <div class="form-group">
                                                                             <label>图书编号</label>
-                                                                            <input class="form-control" name="bno" value="<?php if(check_session("bno")){ echo "{$_SESSION['bno']}"; } else {echo "";}?>" required="required">
+                                                                            <input maxlength="10" class="form-control" name="bno" value="<?php if(check_session("bno")){ echo "{$_SESSION['bno']}"; } else {echo "";}?>" required="required">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>图书分类</label>
-                                                                            <input class="form-control" name="category" value="<?php if(check_session("category")){ echo "{$_SESSION['category']}"; } else {echo "";}?>">
+                                                                            <input maxlength="30" class="form-control" name="category" value="<?php if(check_session("category")){ echo "{$_SESSION['category']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>书名</label>
-                                                                            <input class="form-control" name="title" value="<?php if(check_session("title")){ echo "{$_SESSION['title']}"; } else {echo "";}?>">
+                                                                            <input maxlength="40" class="form-control" name="title" value="<?php if(check_session("title")){ echo "{$_SESSION['title']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>出版社</label>
-                                                                            <input class="form-control" name="press" value="<?php if(check_session("press")){ echo "{$_SESSION['press']}"; } else {echo "";}?>">
+                                                                            <input maxlength="30" class="form-control" name="press" value="<?php if(check_session("press")){ echo "{$_SESSION['press']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>出版年份</label>
-                                                                            <input class="form-control" type="number" name="year" value="<?php if(check_session("year")){ echo "{$_SESSION['year']}"; } else {echo "";}?>">
+                                                                            <input maxlength="11" class="form-control" type="number" name="year" value="<?php if(check_session("year")){ echo "{$_SESSION['year']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>作者</label>
-                                                                            <input class="form-control" name="author" value="<?php if(check_session("author")){ echo "{$_SESSION['author']}"; } else {echo "";}?>">
+                                                                            <input maxlength="20" class="form-control" name="author" value="<?php if(check_session("author")){ echo "{$_SESSION['author']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>购入价格</label>
-                                                                            <input class="form-control" type="number" step="0.01" name="price" value="<?php if(check_session("price")){ echo "{$_SESSION['price']}"; } else {echo "";}?>">
+                                                                            <input maxlength="8" class="form-control" type="number" step="0.01" name="price" value="<?php if(check_session("price")){ echo "{$_SESSION['price']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>总藏书量</label>
-                                                                            <input class="form-control" type="number" name="total" value="<?php if(check_session("total")){ echo "{$_SESSION['total']}"; } else {echo "";}?>">
+                                                                            <input maxlength="11" class="form-control" type="number" name="total" value="<?php if(check_session("total")){ echo "{$_SESSION['total']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>库存</label>
-                                                                            <input class="form-control" type="number" name="stock" value="<?php if(check_session("stock")){ echo "{$_SESSION['stock']}"; } else {echo "";}?>">
+                                                                            <input maxlength="11" class="form-control" type="number" name="stock" value="<?php if(check_session("stock")){ echo "{$_SESSION['stock']}"; } else {echo "";}?>">
                                                                         </div>
                                                                         <hr/>
                                                                         <button type="submit" formmethod="post" formaction="book_store.php" class="btn btn-primary">提交入库申请</button>

@@ -21,8 +21,6 @@
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
         <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
-    <!-- bootstrap_table css -->
-    <link href="assets/js/bootstrap_datatable/bootstrap-table.css" rel="stylesheet" />
      <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <?php
@@ -118,45 +116,45 @@
                                                         <div class="form-group">
                                                             <label for="category" class="col-sm-3 control-label">图书分类</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" name="category" value="<?php echo get_session("category") ?>">
+                                                                <input maxlength="30" type="text" class="form-control" name="category" value="<?php echo get_session("category") ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="title" class="col-sm-3 control-label">书名</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" name="title" value="<?php echo get_session("title") ?>">
+                                                                <input maxlength="40" type="text" class="form-control" name="title" value="<?php echo get_session("title") ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="press" class="col-sm-3 control-label">出版社</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" name="press" value="<?php echo get_session("press") ?>">
+                                                                <input maxlength="30" type="text" class="form-control" name="press" value="<?php echo get_session("press") ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="author" class="col-sm-3 control-label">作者</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" name="author" value="<?php echo get_session("author") ?>">
+                                                                <input maxlength="20" type="text" class="form-control" name="author" value="<?php echo get_session("author") ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="year_min" class="col-sm-3 control-label">出版年份</label>
                                                             <div class="col-sm-4">
-                                                                <input type="number" class="form-control" name="year_min" value="<?php echo get_session("year_min") ?>">
+                                                                <input maxlength="11" type="number" class="form-control" name="year_min" value="<?php echo get_session("year_min") ?>">
                                                             </div>
                                                             <label for="year_max" class="col-sm-1 control-label"> - </label>
                                                             <div class="col-sm-4">
-                                                                <input type="tnumber" class="form-control" name="year_max" value="<?php echo get_session("year_max") ?>">
+                                                                <input maxlength="11" type="number" class="form-control" name="year_max" value="<?php echo get_session("year_max") ?>">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="price_min" class="col-sm-3 control-label">价格</label>
                                                             <div class="col-sm-4">
-                                                                <input type="number" class="form-control" name="price_min" value="<?php echo get_session("price_min") ?>">
+                                                                <input maxlength="11" type="number" class="form-control" name="price_min" value="<?php echo get_session("price_min") ?>">
                                                             </div>
                                                             <label for="price_max" class="col-sm-1 control-label"> - </label>
                                                             <div class="col-sm-4">
-                                                                <input type="tnumber" class="form-control" name="price_max" value="<?php echo get_session("price_max") ?>">
+                                                                <input maxlength="11" type="number" class="form-control" name="price_max" value="<?php echo get_session("price_max") ?>">
                                                             </div>
                                                         </div>
                                                         <hr/>
@@ -189,30 +187,18 @@
                                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                         <thead>
                                                             <tr>
-                                                                <th>书号</th>
-                                                                <th>类别</th>
-                                                                <th>书名</th>
-                                                                <th>出版社</th>
-                                                                <th>年份</th>
-                                                                <th>作者</th>
-                                                                <th>价格</th>
-                                                                <th>总藏书量</th>
-                                                                <th>库存量</th>
+                                                                <th align="center" valign="middle">书号</th>
+                                                                <th align="center" valign="middle">类别</th>
+                                                                <th align="center" valign="middle">书名</th>
+                                                                <th align="center" valign="middle">出版社</th>
+                                                                <th align="center" valign="middle">年份</th>
+                                                                <th align="center" valign="middle">作者</th>
+                                                                <th align="center" valign="middle">价格</th>
+                                                                <th align="center" valign="middle">总藏书量</th>
+                                                                <th align="center" valign="middle">库存量</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <!-- 1.条数控制 2 echo 方式？ -->
-                                                            <!-- <tr class="odd gradeX">
-                                                                <td>Trident</td>
-                                                                <td>Internet Explorer 4.0</td>
-                                                                <td>Win 95+</td>
-                                                                <td>Trident</td>
-                                                                <td>Internet Explorer 4.0</td>
-                                                                <td>Win 95+</td>
-                                                                <td>Trident</td>
-                                                                <td>Internet Explorer 4.0</td>
-                                                                <td>Win 95+</td>
-                                                            </tr> -->
                                                             <?php echo exec_search() ?>
                                                         </tbody>
                                                     </table>
