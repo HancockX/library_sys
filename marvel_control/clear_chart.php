@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	require 'utilities.php';
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		foreach ($_POST as $key => $value) {
 			if (!empty($value)) {

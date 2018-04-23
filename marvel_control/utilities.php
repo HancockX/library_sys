@@ -7,13 +7,20 @@
 		return $data;
 	}
 
-    function get_session($index){
-    	// return empty($_SESSION)["$index"] ? "" : $_SESSION["$index"] ;
-    	if(!empty($_SESSION["$index"])){ return $_SESSION["$index"]; }
-    	else { return ""; }
-    }
+	function clear_book_info(){
+		unset($_SESSION['bno']);
+		unset($_SESSION['category']);
+		unset($_SESSION['title']);
+		unset($_SESSION['press']);
+		unset($_SESSION['year']);
+		unset($_SESSION['author']);
+		unset($_SESSION['price']);
+		unset($_SESSION['total']);
+		unset($_SESSION['stock']);
+	}
 
 	function update_session(){
+		clear_book_info();
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			foreach ($_POST as $key => $value) {
 				if (!empty($value)) {
@@ -25,15 +32,6 @@
 			// var_dump($_SESSION);
 			// die();
 		}
-		unset($_SESSION['bno']);
-		unset($_SESSION['category']);
-		unset($_SESSION['title']);
-		unset($_SESSION['press']);
-		unset($_SESSION['year']);
-		unset($_SESSION['author']);
-		unset($_SESSION['price']);
-		unset($_SESSION['total']);
-		unset($_SESSION['stock']);
 	}
 
 	function echo_result($row){
