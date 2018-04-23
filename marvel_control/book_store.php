@@ -68,8 +68,12 @@
 				$_SESSION['stock'] = $stock;
 			}
 			if ($Err == "") {
+				if ($total < $stock) {
+					goto error;
+				}
 				$flag = insert_single_book_entry($bno, $category, $title, $press, $year, $author, $price, $total, $stock);
 				if(!$flag){
+					error:
 		            $ErrMessage = '入库失败,请检查表单';
 		            die('Error Number 1');
 		            echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html' </script>";
@@ -127,7 +131,7 @@
 		}
 		else{
 			$ErrMessage = '入库失败,请检查表单';
-	        die('Error Number 2');
+	        // die('Error Number 2');
 	        echo "<script type='text/javascript'> alert('{$ErrMessage}');location.href = 'book_store.html' </script>";
 		}
 	}
@@ -143,6 +147,18 @@
 	    $conn = new mysqli($db_host, $db_user, $db_password, $db_database);
 	    if($conn -> connect_errno){
 	        die('连接错误' . $conn -> connect_error);
+	    }
+	    if ($total < $stock) {
+	    	$ErrMessage = 'Integrity Constraint Error: total < stock, 入库失败!';
+	        // die('Error Number 2');
+	        echo "<script> alert('{$ErrMessage}') </script>";
+	        return false;
+	    }
+	    else if ($price < 0 || $total < 0 || $stock < 0) {
+	    	$ErrMessage = 'Integrity Constraint Error: Negative Value, 入库失败!';
+	        // die('Error Number 2');
+	        echo "<script> alert('{$ErrMessage}') </script>";
+	        return false;
 	    }
 	    $query = "insert into book values('{$bno}', '{$category}', '{$title}', '{$press}', $year, '{$author}', $price, $total, $stock);";
 	    $result = $conn->query($query);
