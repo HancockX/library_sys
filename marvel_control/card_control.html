@@ -22,6 +22,7 @@
      <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <?php
+        function check_session($index){
             if(!empty($_SESSION["$index"])){ return true; }
             else { return false; }
         }
