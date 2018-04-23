@@ -148,7 +148,7 @@ function get_session($index)
         <div id="page-wrapper">
             <div class="header"> 
                         <h1 class="page-header">
-                            图书归还
+                            图书归还  <small> 输入借书证号码以查看借阅状态</small>
                         </h1>                   
             </div>
             <div id="page-inner">
@@ -410,7 +410,7 @@ function get_session($index)
                                 {
                                     die('连接错误' . $conn -> connect_error);
                                 }
-                                $query = "select bno
+                                $query = "select *
                                          from borrow
                                          where bno = '{$bno}' and cno='{$number}';";
                                 $result = $conn->query($query);
@@ -441,6 +441,11 @@ function get_session($index)
                                         $ErrMessage = '还书成功';
                                         echo "<script type='text/javascript'> alert('{$ErrMessage}');</script>";
                                         return true;
+                                    }
+                                    else{
+                                        $ErrMessage = '还书失败！';
+                                        echo "<script type='text/javascript'> alert('{$ErrMessage}');</script>";
+                                        return false;
                                     }
                                 }
                                 else

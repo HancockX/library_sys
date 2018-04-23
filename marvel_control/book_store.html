@@ -149,7 +149,7 @@
                                                                             <label>库存</label>
                                                                             <input maxlength="11" class="form-control" type="number" name="stock" value="<?php if(check_session("stock")){ echo "{$_SESSION['stock']}"; } else {echo "";}?>">
                                                                         </div>
-                                                                        <hr/>
+                                                                        <br/>
                                                                         <button type="submit" formmethod="post" formaction="book_store.php" class="btn btn-primary">提交入库申请</button>
                                                                         <button type="submit" formmethod="post" formaction="clear_chart.php" class="btn btn-default">清空表单</button>
                                                                     </form>
