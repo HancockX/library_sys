@@ -119,7 +119,8 @@
 						break;
 					}
 					$info = explode(",", $linedata);
-					$mark = insert_single_book_entry($info[0], $info[1], $info[2], $info[3], $info[4], $info[5], $info[6], $info[7], $info[8]);
+					var_dump($info);
+					$mark = insert_single_book_entry($info[0], $info[1], $info[2], $info[3], $info[4], $info[5], $info[6], $info[7], $info[8][0]);
 					if(!$mark){
 			            $ErrMessage = '入库失败,请检查文件';
 			            // var_dump($linedata);

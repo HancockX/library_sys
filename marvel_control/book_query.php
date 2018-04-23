@@ -81,19 +81,19 @@
 					$query = $query . $extra;
 				}
 				if (!empty($condition['year_min'])) {
-					$extra = " and year_min > {$condition['year_min']} ";
+					$extra = " and year > {$condition['year_min']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['year_max'])) {
-					$extra = " and year_max < {$condition['year_max']} ";
+					$extra = " and year < {$condition['year_max']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['price_min'])) {
-					$extra = " and price_min > {$condition['price_min']} ";
+					$extra = " and price > {$condition['price_min']} ";
 					$query = $query . $extra;
 				}
 				if (!empty($condition['price_max'])) {
-					$extra = " and price_max < {$condition['price_max']} ";
+					$extra = " and price < {$condition['price_max']} ";
 					$query = $query . $extra;
 				}
 			}
