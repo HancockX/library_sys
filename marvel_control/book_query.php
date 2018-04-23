@@ -115,7 +115,7 @@
 	    }
 	    else{
 			// var_dump($query);
-			$ErrMessage = "未查询到任何结果！";
+			$ErrMessage = "未查询到任何结果！将返回整个书库，请重新输入查询条件";
 			echo "<script> alert('{$ErrMessage}');location.href ='{$_SERVER['HTTP_REFERER']}'</script>";
 	    }
 		return $table;
