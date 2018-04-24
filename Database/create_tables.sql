@@ -65,7 +65,7 @@ insert into borrow values('cno3','bno3','2010-8-4','2010-8-10','ano2');
 insert into borrow values('cno4','bno4','2010-9-4','2010-9-10','ano2');
 
 
-drop trigger if exists checkTrigger
+drop trigger if exists checkTrigger;
 DELIMITER $
 create trigger checkTrigger before update on book for each row 
 begin  
